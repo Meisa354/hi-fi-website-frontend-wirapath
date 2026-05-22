@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Bot, User, Send, Mic, X, MoreHorizontal } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, API_BASE_URL } from "@/lib/utils";
 
 interface Message {
   id: string;
@@ -97,7 +97,7 @@ export const ChatSimulation = ({
       salary: 'Salary'
     };
 
-    fetch('http://localhost:5000/api/simulations/start', {
+    fetch(`${API_BASE_URL}/api/simulations/start`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
@@ -112,7 +112,7 @@ export const ChatSimulation = ({
         const newSessionId = data.data.id;
         setSessionId(newSessionId);
 
-        fetch(`http://localhost:5000/api/simulations/${newSessionId}/details`)
+        fetch(`${API_BASE_URL}/api/simulations/${newSessionId}/details`)
         .then(res => res.json())
         .then(detailData => {
           if (detailData.success && detailData.data.quickReplies) {
@@ -216,7 +216,7 @@ export const ChatSimulation = ({
     setInputText("");
 
     if (sessionId) {
-      fetch(`http://localhost:5000/api/simulations/${sessionId}/chats`, {
+      fetch(`${API_BASE_URL}/api/simulations/${sessionId}/chats`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: textToSend, sender: 'user' })

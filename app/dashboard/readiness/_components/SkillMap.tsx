@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+import { cn, API_BASE_URL } from "@/lib/utils";
 
 const defaultSkills = [
   { name: "JavaScript", category: "Language", progress: 78 },
@@ -44,7 +44,7 @@ export const SkillMap = () => {
   const [skills, setSkills] = useState(defaultSkills);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/skills/user/1')
+    fetch(`${API_BASE_URL}/api/skills/user/1`)
       .then(res => res.json())
       .then(data => {
         if (data.success && data.data && data.data.length > 0) {

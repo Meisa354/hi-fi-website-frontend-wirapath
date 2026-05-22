@@ -10,7 +10,7 @@ import { TaskCard } from "./quiz-components/TaskCard";
 import { MultipleChoiceTask } from "./quiz-components/MultipleChoiceTask";
 import { PracticalTask } from "./quiz-components/PracticalTask";
 import { EssayTask } from "./quiz-components/EssayTask";
-import { cn } from "@/lib/utils";
+import { cn, API_BASE_URL } from "@/lib/utils";
 
 interface QuizViewProps {
   onComplete: (answers: Record<number, string>, time: number) => void;
@@ -75,7 +75,7 @@ const QuizView: React.FC<QuizViewProps> = ({ onComplete, onBack }) => {
         : 0;
 
       // 3. POST answers ke API backend
-      fetch('http://localhost:5000/api/quizzes/submit', {
+      fetch(`${API_BASE_URL}/api/quizzes/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
